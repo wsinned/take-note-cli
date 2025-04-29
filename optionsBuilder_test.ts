@@ -17,6 +17,14 @@ const verboseOption: option = {
   optionType: "boolean"
 }
 
+const folderOption: option = {
+  name: "Notes Folder",
+  shortKey: "-f",
+  longKey: "--notesFolder",
+  helpText: "The folder to create and open notes in",
+  optionType: "string"
+}
+
 Deno.test("It builds empty help text from empty options", () => {
   const expected: string[] = []
   const help = buildHelp([])
@@ -24,7 +32,7 @@ Deno.test("It builds empty help text from empty options", () => {
 });
 
 Deno.test("It builds an empty option", () => {
-  const expected:string[] = [ ]
+  const expected: string[] = []
   const ops = buildOptions([])
   assertEquals(ops.boolean, expected)
 });
@@ -36,13 +44,13 @@ Deno.test("It builds help text from a single boolean option", () => {
 });
 
 Deno.test("It builds a single boolean option", () => {
-  const expected = [ "--help"]
+  const expected = ["--help"]
   const ops = buildOptions([helpOption])
   assertEquals(ops.boolean, expected)
 });
 
 Deno.test("It builds a single aliased boolean option", () => {
-  const expected = {"--help": "-h"}
+  const expected = { "--help": "-h" }
   const ops = buildOptions([helpOption])
   assertEquals(ops.alias, expected)
 });
@@ -57,13 +65,37 @@ Deno.test("It builds help text from multiple boolean options", () => {
 });
 
 Deno.test("It builds multiple boolean options", () => {
-  const expected = [ "--help", "--verbose"]
+  const expected = ["--help", "--verbose"]
   const ops = buildOptions([helpOption, verboseOption])
   assertEquals(ops.boolean, expected)
 });
 
 Deno.test("It builds multiple aliased boolean options", () => {
-  const expected = {"--help": "-h", "--verbose": "-v"}
+  const expected = { "--help": "-h", "--verbose": "-v" }
   const ops = buildOptions([helpOption, verboseOption])
+  assertEquals(ops.alias, expected)
+});
+
+Deno.test("It builds help text from multiple mixed options", () => {
+  const expected = [
+    "Help: --help, -h Provides help on the options",
+    "Verbose: --verbose, -v Provides verbose log output",
+    "Notes Folder: --notesFolder, -f The folder to create and open notes in"
+  ]
+  const help = buildHelp([helpOption, verboseOption, folderOption])
+  assertArrayIncludes(help, expected)
+});
+
+Deno.test("It builds multiple mixed options", () => {
+  const expectedBool = ["--help", "--verbose"]
+  const expectedString = ["--notesFolder"]
+  const ops = buildOptions([helpOption, verboseOption, folderOption])
+  assertEquals(ops.boolean, expectedBool)
+  assertEquals(ops.string, expectedString)
+});
+
+Deno.test("It builds multiple aliased mixed options", () => {
+  const expected = { "--help": "-h", "--verbose": "-v", "--notesFolder": "-f" }
+  const ops = buildOptions([helpOption, verboseOption, folderOption])
   assertEquals(ops.alias, expected)
 });
