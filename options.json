@@ -5,5 +5,12 @@
         "longKey": "--help",
         "helpText": "Provides help on the options",
         "optionType": "boolean"
+    },
+    {
+    "name": "Verbose",
+    "shortKey": "-v",
+    "longKey": "--verbose",
+    "helpText": "Provides verbose log output",
+    "optionType": "boolean"
     }
 ]
