@@ -30,10 +30,6 @@ export function buildOptions(source: option[]): ParseOptions {
     return newOptions
 }
 
-export function buildAliases(source: option[]): string[] {
-    return []
-}
-
 export function buildHelp(source: option[]): string[] {
     return source.map((el) => `${el.name}: ${el.longKey}, ${el.shortKey} ${el.helpText}`)
 }
