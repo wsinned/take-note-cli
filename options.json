@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Help",
+        "shortKey": "-h",
+        "longKey": "--help",
+        "helpText": "Provides help on the options",
+        "optionType": "boolean"
+    }
+]
