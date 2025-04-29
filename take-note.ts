@@ -1,6 +1,7 @@
 
+import { parseArgs } from "@std/cli/parse-args";
 import optionsData from "./options.json" with { type: "json" };
-import { buildHelp } from "./optionsBuilder.ts";
+import { buildHelp, buildOptions } from "./optionsBuilder.ts";
 
 function printUsage() {
     console.log("");
@@ -11,5 +12,12 @@ function printUsage() {
     console.log(helpText)
 }
 
+const options = buildOptions(optionsData)
+const args = parseArgs(Deno.args, options)
 
-printUsage()
+if (args.help || args.h) {
+    printUsage()
+    Deno.exit()
+}
+
+console.log("Nothing to do here....")
