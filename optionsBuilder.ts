@@ -1,12 +1,5 @@
 import { ParseOptions } from "@std/cli/parse-args";
-
-export interface option {
-    name: string,
-    longKey: string,
-    shortKey: string,
-    helpText: string,
-    optionType: string
-}
+import { option } from "./option.ts";
 
 export function buildOptions(source: option[]): ParseOptions {
     const booleanOptions: string[] = []
@@ -31,5 +24,5 @@ export function buildOptions(source: option[]): ParseOptions {
 }
 
 export function buildHelp(source: option[]): string[] {
-    return source.map((el) => `${el.name}: ${el.longKey}, ${el.shortKey} ${el.helpText}`)
+    return source.map((el) => `${el.name}: ${el.longKey}, ${el.shortKey?? ""} ${el.helpText}`)
 }

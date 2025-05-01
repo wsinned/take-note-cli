@@ -19,5 +19,11 @@
     "longKey": "--notesFolder",
     "helpText": "The folder to create and open notes in",
     "optionType": "string"
+  },
+  {
+    "name": "Version",
+    "longKey": "--version",
+    "helpText": "Show the version of this application",
+    "optionType": "boolean"
   }
 ]

@@ -1,5 +1,6 @@
 import { assertArrayIncludes, assertEquals } from "@std/assert";
-import { buildHelp, buildOptions, option } from "./optionsBuilder.ts";
+import { buildHelp, buildOptions } from "./optionsBuilder.ts";
+import { option } from "./option.ts";
 
 const helpOption: option = {
   name: "Help",
@@ -23,6 +24,11 @@ const folderOption: option = {
   longKey: "--notesFolder",
   helpText: "The folder to create and open notes in",
   optionType: "string"
+}
+
+const missingShortKeyOption: option = {
+  name: "Test", longKey: "--test", helpText: "Test text", optionType: "boolean",
+  shortKey: undefined
 }
 
 Deno.test("It builds empty help text from empty options", () => {
@@ -98,4 +104,16 @@ Deno.test("It builds multiple aliased mixed options", () => {
   const expected = { "--help": "-h", "--verbose": "-v", "--notesFolder": "-f" }
   const ops = buildOptions([helpOption, verboseOption, folderOption])
   assertEquals(ops.alias, expected)
+});
+
+Deno.test("It builds alias missing a shortKey", () => {
+  const expected = {}
+  const ops = buildOptions([missingShortKeyOption])
+  assertEquals(ops.alias, expected)
+});
+
+Deno.test("It builds option missing a shortKey", () => {
+  const expected = ["--test"]
+  const ops = buildOptions([missingShortKeyOption])
+  assertEquals(ops.boolean, expected)
 });
