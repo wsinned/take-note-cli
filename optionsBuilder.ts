@@ -9,10 +9,10 @@ export function buildOptions(source: option[]): ParseOptions {
     source.forEach(el => {
         if (el.optionType === "string") {
             if (el.shortKey) aliasOptions[el.longKey] =  el.shortKey
-            if (el.longKey) stringOptions.push(el.longKey)
+            stringOptions.push(el.longKey)
         } else {
             if (el.shortKey) aliasOptions[el.longKey] =  el.shortKey
-            if (el.longKey) booleanOptions.push(el.longKey)
+            booleanOptions.push(el.longKey)
         }
     });
     const newOptions: ParseOptions = {
