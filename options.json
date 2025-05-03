@@ -1,28 +1,28 @@
 [
   {
     "name": "Help",
-    "shortKey": "-h",
-    "longKey": "--help",
+    "shortKey": "h",
+    "longKey": "help",
     "helpText": "Provides help on the options",
     "optionType": "boolean"
   },
   {
     "name": "Verbose",
-    "shortKey": "-v",
-    "longKey": "--verbose",
+    "shortKey": "v",
+    "longKey": "verbose",
     "helpText": "Provides verbose log output",
     "optionType": "boolean"
   },
   {
     "name": "Notes Folder",
-    "shortKey": "-f",
-    "longKey": "--notesFolder",
+    "shortKey": "f",
+    "longKey": "notesFolder",
     "helpText": "The folder to create and open notes in",
     "optionType": "string"
   },
   {
     "name": "Version",
-    "longKey": "--version",
+    "longKey": "version",
     "helpText": "Show the version of this application",
     "optionType": "boolean"
   }

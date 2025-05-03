@@ -24,5 +24,5 @@ export function buildOptions(source: option[]): ParseOptions {
 }
 
 export function buildHelp(source: option[]): string[] {
-    return source.map((el) => `${el.name}: ${el.longKey}, ${el.shortKey?? ""} ${el.helpText}`)
+    return source.map((el) => `${el.name}: --${el.longKey}, -${el.shortKey?? ""} ${el.helpText}`)
 }

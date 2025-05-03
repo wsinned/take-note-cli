@@ -4,24 +4,24 @@ import { option } from "./option.ts";
 
 const helpOption: option = {
   name: "Help",
-  shortKey: "-h",
-  longKey: "--help",
+  shortKey: "h",
+  longKey: "help",
   helpText: "Provides help on the options",
   optionType: "boolean"
 }
 
 const verboseOption: option = {
   name: "Verbose",
-  shortKey: "-v",
-  longKey: "--verbose",
+  shortKey: "v",
+  longKey: "verbose",
   helpText: "Provides verbose log output",
   optionType: "boolean"
 }
 
 const folderOption: option = {
   name: "Notes Folder",
-  shortKey: "-f",
-  longKey: "--notesFolder",
+  shortKey: "f",
+  longKey: "notesFolder",
   helpText: "The folder to create and open notes in",
   optionType: "string"
 }
@@ -50,13 +50,13 @@ Deno.test("It builds help text from a single boolean option", () => {
 });
 
 Deno.test("It builds a single boolean option", () => {
-  const expected = ["--help"]
+  const expected = ["help"]
   const ops = buildOptions([helpOption])
   assertEquals(ops.boolean, expected)
 });
 
 Deno.test("It builds a single aliased boolean option", () => {
-  const expected = { "--help": "-h" }
+  const expected = { "help": "h" }
   const ops = buildOptions([helpOption])
   assertEquals(ops.alias, expected)
 });
@@ -71,13 +71,13 @@ Deno.test("It builds help text from multiple boolean options", () => {
 });
 
 Deno.test("It builds multiple boolean options", () => {
-  const expected = ["--help", "--verbose"]
+  const expected = ["help", "verbose"]
   const ops = buildOptions([helpOption, verboseOption])
   assertEquals(ops.boolean, expected)
 });
 
 Deno.test("It builds multiple aliased boolean options", () => {
-  const expected = { "--help": "-h", "--verbose": "-v" }
+  const expected = { "help": "h", "verbose": "v" }
   const ops = buildOptions([helpOption, verboseOption])
   assertEquals(ops.alias, expected)
 });
@@ -93,15 +93,15 @@ Deno.test("It builds help text from multiple mixed options", () => {
 });
 
 Deno.test("It builds multiple mixed options", () => {
-  const expectedBool = ["--help", "--verbose"]
-  const expectedString = ["--notesFolder"]
+  const expectedBool = ["help", "verbose"]
+  const expectedString = ["notesFolder"]
   const ops = buildOptions([helpOption, verboseOption, folderOption])
   assertEquals(ops.boolean, expectedBool)
   assertEquals(ops.string, expectedString)
 });
 
 Deno.test("It builds multiple aliased mixed options", () => {
-  const expected = { "--help": "-h", "--verbose": "-v", "--notesFolder": "-f" }
+  const expected = { "help": "h", "verbose": "v", "notesFolder": "f" }
   const ops = buildOptions([helpOption, verboseOption, folderOption])
   assertEquals(ops.alias, expected)
 });
