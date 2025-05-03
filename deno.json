@@ -1,7 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts",
-    "start": "deno run --allow-read take-note.ts"
+    "start": "deno run --allow-read take-note.ts --notesFolder=/tmp/notes"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
