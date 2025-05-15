@@ -13,12 +13,7 @@
 			"source": "/var/home/wsinned",
 			"target": "/var/home/wsinned",
 			"type": "bind"
-		},
-    {
-      "source": "${localWorkspaceFolder}/.devcontainer/.local/share/fish/fish_history",
-      "target": "/var/home/wsinned/.local/share/fish/fish_history",
-      "type": "bind"
-    }
+		}
   ],
 
   	"customizations": {
