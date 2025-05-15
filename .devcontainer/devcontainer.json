@@ -1,29 +1,37 @@
 {
-	"name": "Deno",
-	"build": {
-		"dockerfile": "Dockerfile"
+  "name": "Deno",
+  "image": "bluefin-cli-deno-dx",
+
+  "containerEnv": {
+		"HOME": "/var/home/wsinned",
+		"TZ": "GMT",
+		"USER": "wsinned"
 	},
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	"features": {
-    	"ghcr.io/larsnieuwenhuizen/features/neovim:0": {}
-	},
+	"mounts": [
+		{
+			"source": "/var/home/wsinned",
+			"target": "/var/home/wsinned",
+			"type": "bind"
+		},
+    {
+      "source": "${localWorkspaceFolder}/.devcontainer/.local/share/fish/fish_history",
+      "target": "/var/home/wsinned/.local/share/fish/fish_history",
+      "type": "bind"
+    }
+  ],
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
-
-	// Configure tool-specific properties.
-	"customizations": {
+  	"customizations": {
 		"vscode": {
 			"extensions": [
-				"justjavac.vscode-deno-extensionpack",
-				"asvetliakov.vscode-neovim"
-			]
+				"justjavac.vscode-deno-extensionpack"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "fish"
+			}
 		}
-	}	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	},
+
+	"remoteUser": "wsinned"
+
 }
