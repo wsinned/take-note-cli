@@ -8,6 +8,7 @@ import { arguments } from "./arguments.ts";
 import optionsData from "./options.json" with { type: "json" };
 import meta from "./deno.json" with { type: "json" };
 import { printUsage, useVerbose } from "./utilities.ts";
+import { isValidWhenOption, When } from "./whenOptions.ts";
 
 const parsedData = optionsData as option[]
 
@@ -30,6 +31,14 @@ if (args.notesFolder) {
 
     if (!validFolder) {
         console.warn(`Folder ${args.notesFolder} doesn't exist`)
+        Deno.exit()
+    }
+}
+
+if (args.when) {
+    if (isValidWhenOption(args.when)) {
+        const when = When[args.when as keyof typeof When]
+        console.log(`Will create or open file for ${When[when]} in ${args.notesFolder}`)
     }
 }
 

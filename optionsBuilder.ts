@@ -1,5 +1,8 @@
 import { ParseOptions } from "@std/cli/parse-args";
 import { option } from "./option.ts";
+import { When } from "./whenOptions.ts";
+
+type whenOption = keyof When
 
 export function buildOptions(source: option[]): ParseOptions {
     const booleanOptions: string[] = []

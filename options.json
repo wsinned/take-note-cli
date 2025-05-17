@@ -25,5 +25,12 @@
     "longKey": "version",
     "helpText": "Show the version of this application",
     "optionType": "boolean"
+  },
+  {
+    "name": "When",
+    "longKey": "when",
+    "shortKey": "w",
+    "helpText": "thisWeek, lastWeek, nextWeek - open or create your weekly note.",
+    "optionType": "string"
   }
 ]
