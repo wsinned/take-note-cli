@@ -1,6 +1,6 @@
 import { ParseOptions } from "@std/cli/parse-args";
-import { option } from "./option.ts";
-import { buildHelp } from "./optionsBuilder.ts";
+import { option } from "./options/option.ts";
+import { buildHelp } from "./options/optionsBuilder.ts";
 import { arguments } from "./arguments.ts";
 
 export function printUsage(options: option[]) {

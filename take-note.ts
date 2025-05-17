@@ -1,14 +1,14 @@
 import { parseArgs } from "@std/cli/parse-args";
 import { exists } from "jsr:@std/fs/exists";
 
-import { buildOptions } from "./optionsBuilder.ts";
-import { option } from "./option.ts";
+import { buildOptions } from "./options/optionsBuilder.ts";
+import { option } from "./options/option.ts";
 import { arguments } from "./arguments.ts";
 
-import optionsData from "./options.json" with { type: "json" };
+import optionsData from "./options/options.json" with { type: "json" };
 import meta from "./deno.json" with { type: "json" };
 import { printUsage, useVerbose } from "./utilities.ts";
-import { isValidWhenOption, When } from "./whenOptions.ts";
+import { isValidWhenOption, When } from "./options/whenOptions.ts";
 
 const parsedData = optionsData as option[]
 
