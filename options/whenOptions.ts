@@ -1,4 +1,5 @@
 export enum When {
+    none,
     lastWeek,
     thisWeek,
     nextWeek

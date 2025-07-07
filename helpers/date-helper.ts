@@ -19,5 +19,7 @@ export function dateFromWhen(date: Date, when: When) {
 }
 
 export function namefromDate(date: Date, suffix: string, ext: string) {
-  return `${lightFormat(date, "yyyy-MM-dd")}-${suffix}.${ext}`
+  const pathPart = `${lightFormat(date, "yyyy/MM")}`
+  const fileName =  `${lightFormat(date, "yyyy-MM-dd")}-${suffix}.${ext}`
+  return [pathPart, fileName]
 }

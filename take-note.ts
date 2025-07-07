@@ -1,5 +1,6 @@
 import { parseArgs } from "@std/cli/parse-args";
 import { exists } from "@std/fs/exists";
+import path from "node:path"
 
 import { buildOptions } from "./options/optionsBuilder.ts";
 import { option } from "./options/option.ts";
@@ -9,7 +10,7 @@ import optionsData from "./options/options.json" with { type: "json" };
 import meta from "./deno.json" with { type: "json" };
 import { printUsage } from "./helpers/usage-helper.ts";
 import { isValidWhenOption, When } from "./options/whenOptions.ts";
-import { dateFromWhen } from "./helpers/date-helper.ts";
+import { dateFromWhen, namefromDate } from "./helpers/date-helper.ts";
 
 const parsedData = optionsData as option[]
 
@@ -28,6 +29,7 @@ if (args.help || args.h) {
 
 let validFolder = false
 let validWhen = false
+let when: When
 
 if (args.notesFolder) {
     validFolder = await exists(args.notesFolder, { isDirectory: true })
@@ -41,18 +43,36 @@ if (args.notesFolder) {
 if (args.when) {
     validWhen = isValidWhenOption(args.when)
     if (validWhen) {
-        const when = When[args.when as keyof typeof When]
+        when = When[args.when as keyof typeof When]
         console.log(`Will create or open file for ${When[when]} in ${args.notesFolder}`)
+
+        if (validFolder) {
+            await openFile(args.notesFolder, when)
+        }
+    } else {
+        console.warn(`Folder ${args.notesFolder} doesn't exist`)
+        printUsage(parsedData)
     }
 }
 
-export function openFile(filePath: string, when: When ) {
+async function openFile(notesFolder: string, when: When) {
     const date = dateFromWhen(new Date, when)
-    const fileName = namefromDate(date)
-}
+    const SUFFIX = 'Weekly-log'
+    const FILE_EXT = 'md'
+    const [pathPart, fileName] = namefromDate(date, SUFFIX, FILE_EXT)
+    const fullPath = path.join(notesFolder, pathPart)
 
-if (validFolder && validWhen) {
-    console.log("Do something")
+    await Deno.mkdir(fullPath, { recursive: true })
+    const filePath = path.join(fullPath, fileName)
+    const validFile = await exists(filePath)
+    if (!validFile) {
+        console.log(`Creating ${filePath}`)
+        Deno.writeTextFileSync(filePath, "")
+    }
+
+    console.log(`Opening ${filePath}`)
+    const subprocess = new Deno.Command(Deno.execPath(), { args: ['vi', filePath] })
+    await subprocess.output()
 }
 
 console.log("Nothing to do here....")

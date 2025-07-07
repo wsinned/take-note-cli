@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --allow-read take-note.ts --notesFolder /tmp/notes --when nextWeek"
+    "start": "deno run --allow-read --allow-write take-note.ts --notesFolder /tmp/notes --when nextWeek -v"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",

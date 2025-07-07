@@ -23,6 +23,8 @@ Deno.test("It finds Monday from last week", () => {
 
 Deno.test("It formats a date based filename", () => {
     const date = new Date('2025-05-21')
-    assertEquals('2025-05-21-Weekly-log.md', namefromDate(date, 'Weekly-log', 'md'))
+    const [path, file] = namefromDate(date, 'Weekly-log', 'md')
+    assertEquals('2025/05', path)
+    assertEquals('2025-05-21-Weekly-log.md', file)
 });
 
