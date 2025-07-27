@@ -1,5 +1,6 @@
 import { assertEquals } from "@std/assert/equals";
-import { isValidWhenOption, When } from "./whenOptions.ts";
+import { isValidWhenOption, When, whenFromString } from "./whenOptions.ts";
+import { assertThrows } from "@std/assert/throws";
 
 
 Deno.test("It parses a when option", () => {
@@ -18,4 +19,12 @@ Deno.test("It can spot a valid when option", () => {
 
 Deno.test("It can spot an invalid when option", () => {
     assertEquals(false, isValidWhenOption('someWeek'))
+});
+
+Deno.test("It parses a valid When option", () => {
+    assertEquals(When.thisWeek, whenFromString("thisWeek"))
+});
+
+Deno.test("It throws when it parses an invalid When option", () => {
+    assertThrows(() => whenFromString("someWeek"), Error,  "invalid When option")
 });

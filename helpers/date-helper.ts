@@ -1,25 +1,29 @@
 import { When } from "../options/whenOptions.ts";
 import { addDays, lightFormat, startOfWeek } from "npm:date-fns"
 
-export function dateFromWhen(date: Date, when: When) {
+export function dateFromWhen(date: Date, when: When): Date {
   let monday = startOfWeek(date, { weekStartsOn: 1 })
+  console.log(`Monday is ${monday}`)
 
   switch (when) {
     case When.lastWeek:
       monday = addDays(monday, -7)
+      console.log(`Monday last week is ${monday}`)
       break
     case When.nextWeek:
       monday = addDays(monday, 7)
+      console.log(`Monday next week is ${monday}`)
       break
     default:
+      console.log(`Monday is unchanged ${monday} for ${when} : ${typeof (when)}`)
       break
   }
 
   return monday
 }
 
-export function namefromDate(date: Date, suffix: string, ext: string) {
+export function namefromDate(date: Date, suffix: string, ext: string): [string, string] {
   const pathPart = `${lightFormat(date, "yyyy/MM")}`
-  const fileName =  `${lightFormat(date, "yyyy-MM-dd")}-${suffix}.${ext}`
+  const fileName = `${lightFormat(date, "yyyy-MM-dd")}-${suffix}.${ext}`
   return [pathPart, fileName]
 }

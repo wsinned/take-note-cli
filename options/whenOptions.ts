@@ -1,5 +1,5 @@
 export enum When {
-    none,
+    // none,
     lastWeek,
     thisWeek,
     nextWeek
@@ -8,4 +8,13 @@ export enum When {
 export function isValidWhenOption(option: unknown) {
     const when = When[option as keyof typeof When]
     return when !== undefined
+}
+
+export function whenFromString(input: unknown): When {
+    if (isValidWhenOption(input)) {
+        const when = When[input as keyof typeof When]
+        return when
+    } else {
+        throw new Error("invalid When option, must be one of |thisWeek|nextWeek|lastWeek|")
+    }
 }
