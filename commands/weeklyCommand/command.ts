@@ -1,6 +1,5 @@
 import { buildCommand } from "@stricli/core";
 import { When } from "../../options/whenOptions.ts";
-// import { RequiredEnumFlagParameter } from "@stricli/core/"
 
 type Flags = {
     readonly notesFolder: string;

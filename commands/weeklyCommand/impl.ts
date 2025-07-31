@@ -1,4 +1,3 @@
-
 import path from "node:path";
 import type { LocalContext } from "../../context.ts";
 import { dateFromWhen, namefromDate } from "../../helpers/date-helper.ts";
@@ -27,6 +26,6 @@ export default async function(this: LocalContext, flags: WeeklyCommandFlags): Pr
     }
 
     console.log(`Opening ${filePath}`)
-    const subprocess = new Deno.Command(Deno.execPath(), { args: ['vi', filePath] })
-    await subprocess.output()
+    const subprocess = new Deno.Command("vi", { args: [filePath] })
+    const process = subprocess.spawn()
 }
