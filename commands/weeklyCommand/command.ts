@@ -4,6 +4,7 @@ import { When } from "../../options/whenOptions.ts";
 type Flags = {
     readonly notesFolder: string;
     readonly when: When;
+    readonly editor: string;
 };
 
 export const weeklyCommand = buildCommand({
@@ -22,6 +23,13 @@ export const weeklyCommand = buildCommand({
                 parse: String,
                 optional: false
             },
+            editor: {
+                brief: "Which editor configuration to use. Obsidian and VSCode have their own handlers",
+                kind: "enum",
+                values: ["obsidian", "vscode", "generic"],
+                optional: true,
+                default: "generic"
+            }
         }
     },
     docs: {
