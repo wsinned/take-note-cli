@@ -1,3 +1,4 @@
+import { run } from "npm:@stricli/core@1.2.0";
 import { buildApplication, buildRouteMap } from "@stricli/core";
 // import { buildInstallCommand, buildUninstallCommand } from "@stricli/auto-complete";
 // import { name, version, description } from "../package.json";
@@ -26,6 +27,5 @@ export const app = buildApplication(routes, {
     },
 });
 
-app
+await run(app, process.argv.slice(2), { process });
 
-console.log("Nothing to do here....")
