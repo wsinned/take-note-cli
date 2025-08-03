@@ -6,7 +6,7 @@ import { weeklyCommand } from "./commands/weeklyCommand/command.ts";
 // import { nestedRoutes } from "./commands/nested/commands";
 import meta from "./deno.json" with { type: "json" };
 
-const description = 'Take-Note: A cli note taking helper'
+const description = 'Take Note: A cli note taking helper'
 
 const routes = buildRouteMap({
     routes: {

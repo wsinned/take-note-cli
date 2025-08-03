@@ -4,6 +4,22 @@ Deno and Typescript implementation of my note taking cli helper
 
 ## Usage
 
+```
+USAGE
+  take-note weekly (--when lastWeek|thisWeek|nextWeek) (--notesFolder value) [--editor obsidian|vscode|generic]
+  take-note --help
+  take-note --version
+
+Take Note: A cli note taking helper
+
+FLAGS
+  -h --help     Print help information and exit
+  -v --version  Print version information and exit
+
+COMMANDS
+  weekly  Open a file for the given week's note, creating it first if it doesn't exist
+```
+
 ### Open your weekly note for this week from the specified folder
 
 Open a file with a name matching the date of the Monday of the week specified using VSCode as the editor:
