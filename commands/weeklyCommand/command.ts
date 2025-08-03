@@ -29,6 +29,12 @@ export const weeklyCommand = buildCommand({
                 values: ["obsidian", "vscode", "generic"],
                 optional: true,
                 default: "generic"
+            },
+            template: {
+                brief: "The template file to use when creating new weekly notes",
+                kind: "parsed",
+                parse: String,
+                optional: true
             }
         }
     },

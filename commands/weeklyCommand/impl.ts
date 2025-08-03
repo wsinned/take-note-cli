@@ -8,7 +8,8 @@ import { Editor, editorFromString } from "../../options/editorOptions.ts";
 interface WeeklyCommandFlags {
     when: string,
     notesFolder: string,
-    editor: string
+    editor: string,
+    template: string
 }
 
 export default async function (this: LocalContext, flags: WeeklyCommandFlags): Promise<void> {
@@ -19,13 +20,22 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
     const FILE_EXT = 'md'
     const [pathPart, fileName] = namefromDate(date, SUFFIX, FILE_EXT)
     const fullPath = path.join(flags.notesFolder, pathPart)
+    const templatePath = path.join(flags.notesFolder, flags.template)
 
     await Deno.mkdir(fullPath, { recursive: true })
     const filePath = path.join(fullPath, fileName)
     const validFile = await exists(filePath)
     if (!validFile) {
         console.log(`Creating ${filePath}`)
-        Deno.writeTextFileSync(filePath, "")
+        let content = ""
+        if (flags.template && await exists(templatePath)) {
+            const decoder = new TextDecoder("utf-8")
+            const data = Deno.readFileSync(templatePath)
+            content = decoder.decode(data)
+        } else {
+            console.log(`Template file: ${templatePath} not found`)
+        }
+        Deno.writeTextFileSync(filePath, content)
     }
 
     console.log(`Opening ${filePath}`)
