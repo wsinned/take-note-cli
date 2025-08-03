@@ -29,7 +29,9 @@ Open a file with a name matching the date of the Monday of the week specified us
 ## To Do
 
 Implement the following:
+- template file to use for new notes
 - batch file creation ahead of time
+- workspace option to use with VSCode
 - daily notes
 - creating and using a config file
 
