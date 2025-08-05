@@ -30,10 +30,18 @@ Open a file with a name matching the date of the Monday of the week specified us
 take-note weekly --notesFolder ~/Notes --when thisWeek --editor vscode
 ```
 
+### Create a new file from a template if the file doens't already exist
+
+Supplying the ```--template``` flag and the path to a template file relative to the ```--notesFolder``` will use the template to create a new file with the content of the template file.
+
+``` 
+take-note weekly --notesFolder ~/Notes --when thisWeek --template weekly-template.md
+```
+
+
 ## To Do
 
 Implement the following:
-- template file to use for new notes
 - batch file creation ahead of time
 - workspace option to use with VSCode
 - daily notes
