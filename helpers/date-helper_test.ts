@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert/equals";
-import { dateFromWhen, namefromDate } from "./date-helper.ts";
+import { dateForHeader, dateFromWhen, namefromDate } from "./date-helper.ts";
 import { When } from "../options/whenOptions.ts";
 
 
@@ -28,3 +28,7 @@ Deno.test("It formats a date based filename", () => {
     assertEquals('2025-05-21-Weekly-log.md', file)
 });
 
+Deno.test("It formats a date based header", () => {
+    const date = new Date('2025-05-21')
+    assertEquals('Wednesday 21 May 2025', dateForHeader(date))
+})

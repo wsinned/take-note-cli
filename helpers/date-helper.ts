@@ -1,5 +1,5 @@
 import { When } from "../options/whenOptions.ts";
-import { addDays, lightFormat, startOfWeek } from "npm:date-fns"
+import { addDays, format, lightFormat, startOfWeek } from "npm:date-fns"
 
 export function dateFromWhen(date: Date, when: When): Date {
   let monday = startOfWeek(date, { weekStartsOn: 1 })
@@ -26,4 +26,8 @@ export function namefromDate(date: Date, suffix: string, ext: string): [string, 
   const pathPart = `${lightFormat(date, "yyyy/MM")}`
   const fileName = `${lightFormat(date, "yyyy-MM-dd")}-${suffix}.${ext}`
   return [pathPart, fileName]
+}
+
+export function dateForHeader(date: Date): string {
+  return `${format(date, 'EEEE d MMMM yyyy')}`
 }

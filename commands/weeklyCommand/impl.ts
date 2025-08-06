@@ -1,11 +1,12 @@
 import path from "node:path";
 import type { LocalContext } from "../../context.ts";
-import { dateFromWhen, namefromDate } from "../../helpers/date-helper.ts";
+import { dateForHeader, dateFromWhen, namefromDate } from "../../helpers/date-helper.ts";
 import { exists } from "@std/fs/exists";
 import { When, whenFromString } from "../../options/whenOptions.ts";
 import { Editor, editorFromString } from "../../options/editorOptions.ts";
 import { getEditorHandler } from "../../handlers/getEditorHandler.ts";
 import { getTemplateContent } from "../../helpers/getTemplateContent.ts";
+import { updateTemplateVariables } from "../../helpers/updateTemplateVariables.ts";
 
 interface WeeklyCommandFlags {
     when: string,
@@ -27,7 +28,8 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
     const filePath = path.join(fullPath, fileName)
     const validFile = await exists(filePath)
     if (!validFile) {
-        const content = await getTemplateContent(flags.notesFolder, flags.template)
+        let content = await getTemplateContent(flags.notesFolder, flags.template)
+        content = updateTemplateVariables(content, dateForHeader(date))
         Deno.writeTextFileSync(filePath, content)
     }
 
