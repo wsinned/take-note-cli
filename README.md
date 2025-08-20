@@ -39,6 +39,14 @@ Supplying the ```--template``` flag and the path to a template file relative to 
 take-note weekly --notesFolder ~/Notes --when thisWeek --template weekly-template.md
 ```
 
+This results in a template file of ``` # template W/C HEADER_DATE ``` producing the file ```2025-07-28-Weekly-log.md``` with content:
+
+
+```
+# template W/C Monday 28 July 2025
+
+
+```
 
 ## To Do
 
