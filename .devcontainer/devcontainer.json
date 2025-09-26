@@ -1,6 +1,6 @@
 {
   "name": "Deno",
-  "image": "bluefin-cli-deno-dx",
+  "image": "fedora-deno-dx",
 
   "containerEnv": {
 		"HOME": "/var/home/wsinned",
