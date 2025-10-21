@@ -1,32 +1,23 @@
 {
-  "name": "Deno",
-  "image": "fedora-deno-dx",
-
-  "containerEnv": {
-		"HOME": "/var/home/wsinned",
+	"name": "Deno",
+	"image": "devcon-deno-dx",
+	"containerEnv": {
+		"HOME": "/var/home/devuser",
 		"TZ": "GMT",
-		"USER": "wsinned"
+		"USER": "devuser",
+		"DOTFILES_REPOSITORY": "/var/home/devuser/dotfiles"
 	},
-
-	"mounts": [
-		{
-			"source": "/var/home/wsinned",
-			"target": "/var/home/wsinned",
-			"type": "bind"
-		}
-  ],
-
-  	"customizations": {
+	"customizations": {
 		"vscode": {
 			"extensions": [
 				"justjavac.vscode-deno-extensionpack"
 			],
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "fish"
+				"terminal.integrated.defaultProfile.linux": "fish",
+				"dotfiles.repository": "wsinned/container-dotfiles",
+				"dotfiles.targetPath": "~/dotfiles"
 			}
 		}
 	},
-
-	"remoteUser": "wsinned"
-
+	"remoteUser": "devuser"
 }
