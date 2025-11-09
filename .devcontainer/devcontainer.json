@@ -14,6 +14,7 @@
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "fish",
+				"terminal.integrated.fontFamily": "MesloLGL Nerd Font",
 				"dotfiles.repository": "wsinned/container-dotfiles",
 				"dotfiles.targetPath": "~/dotfiles"
 			}
