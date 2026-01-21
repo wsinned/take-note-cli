@@ -1,7 +1,7 @@
 import { exists } from "@std/fs/exists";
 import path from "node:path";
 
-export async function getTemplateContent(notesFolder: string, templateFlag: string) {
+export async function getTemplateContent(notesFolder: string, templateFlag?: string) {
   if (templateFlag === undefined) {
     return "";
   }

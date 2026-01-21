@@ -9,10 +9,11 @@ import { getTemplateContent } from "../../helpers/getTemplateContent.ts";
 import { updateTemplateVariables } from "../../helpers/updateTemplateVariables.ts";
 
 interface WeeklyCommandFlags {
-    when: string,
-    notesFolder: string,
-    editor: string,
-    template: string
+    when: "lastWeek" | "thisWeek" | "nextWeek";
+    notesFolder: string;
+    editor?: "obsidian" | "vscode" | "generic";
+    template?: string;
+    batch?: number;
 }
 
 export default async function (this: LocalContext, flags: WeeklyCommandFlags): Promise<void> {
