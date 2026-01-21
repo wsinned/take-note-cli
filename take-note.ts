@@ -1,5 +1,5 @@
-import { run } from "npm:@stricli/core@1.2.0";
-import { buildApplication, buildRouteMap } from "@stricli/core";
+import { run, buildApplication, buildRouteMap } from "@stricli/core";
+import process from "node:process";
 // import { buildInstallCommand, buildUninstallCommand } from "@stricli/auto-complete";
 // import { name, version, description } from "../package.json";
 import { weeklyCommand } from "./commands/weeklyCommand/command.ts";
@@ -27,5 +27,7 @@ export const app = buildApplication(routes, {
     },
 });
 
-await run(app, process.argv.slice(2), { process });
+if (import.meta.main) {
+    await run(app, process.argv.slice(2), { process });
+}
 
