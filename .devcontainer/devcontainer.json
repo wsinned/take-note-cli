@@ -2,15 +2,31 @@
 	"name": "Deno",
 	"image": "devcon-deno-dx",
 	"containerEnv": {
-		"HOME": "/var/home/devuser",
+		"HOME": "/home/vscode",
 		"TZ": "GMT",
-		"USER": "devuser",
-		"DOTFILES_REPOSITORY": "/var/home/devuser/dotfiles"
+		"USER": "vscode",
+		"DOTFILES_REPOSITORY": "/home/vscode/dotfiles"
 	},
+	"forwardPorts": [
+		8338
+	],
+	"portsAttributes": {
+		"8338": {
+			"label": "Claude Code Auth",
+			"onAutoForward": "notify"
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind",
+		"source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind",
+		"source=${localEnv:HOME}/.local/bin/claude,target=/home/vscode/.local/bin/claude,type=bind",
+		"source=${localEnv:HOME}/.local/share/claude,target=/home/devuser/.local/share/claude,type=bind"
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"justjavac.vscode-deno-extensionpack"
+				"justjavac.vscode-deno-extensionpack",
+				"anthropic.claude-code"
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "fish",
@@ -20,5 +36,5 @@
 			}
 		}
 	},
-	"remoteUser": "devuser"
+	"remoteUser": "vscode"
 }
