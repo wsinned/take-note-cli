@@ -1,7 +1,7 @@
 import { buildCommand } from "@stricli/core";
 
 export const weeklyCommand = buildCommand({
-    loader: async () => import("./impl.ts"),
+    loader: () => import("./impl.ts"),
     parameters: {
         positional: {
             kind: "tuple",
