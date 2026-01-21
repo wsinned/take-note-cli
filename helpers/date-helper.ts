@@ -1,5 +1,5 @@
 import { When } from "../options/whenOptions.ts";
-import { addDays, format, lightFormat, startOfWeek } from "npm:date-fns"
+import { addDays, format, lightFormat, startOfWeek } from "date-fns"
 
 export function dateFromWhen(date: Date, when: When): Date {
   let monday = startOfWeek(date, { weekStartsOn: 1 })
