@@ -7,7 +7,8 @@ Deno and Typescript implementation of my note taking cli helper
 ```
 USAGE
   take-note weekly (--when lastWeek|thisWeek|nextWeek) (--notesFolder value) 
-    [--editor obsidian|vscode|generic] [--template value]
+    [--editor obsidian|vscode|generic] [--template value] [--batch value]
+    [--noOpen] [--format json|text|silent]
   take-note --help
   take-note --version
 
@@ -47,6 +48,42 @@ This results in a template file of ``` # template W/C HEADER_DATE ``` producing 
 
 
 ```
+
+### Headless Mode (automation/scripting)
+
+The `--noOpen` flag creates the file without opening it in an editor, perfect for automation, cron jobs, or scripting.
+
+#### Text Output (default)
+
+```bash
+take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen
+# Output: Created: /home/user/Notes/2026/02/2026-02-16-Weekly-log.md
+```
+
+#### JSON Output (for scripts)
+
+```bash
+take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen --format json
+# Output:
+# {
+#   "created": true,
+#   "path": "/home/user/Notes/2026/02/2026-02-16-Weekly-log.md",
+#   "date": "2026-02-16"
+# }
+```
+
+#### Silent Output (for cron)
+
+```bash
+take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen --format silent
+# No output - exit code 0 on success
+```
+
+**Use cases:**
+- Cron jobs that pre-create weekly notes
+- Automation scripts that generate notes programmatically
+- CI/CD pipelines that need to create notes without user interaction
+- Background processes that track events in notes
 
 ## To Do
 

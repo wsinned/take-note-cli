@@ -9,10 +9,17 @@ export const weeklyCommand = buildCommand({
                 kind: "enum",
                 values: ["lastWeek", "thisWeek", "nextWeek"] as const,
             },
+            config: {
+                brief: "Named config section to use from ~/.config/take-note/config.toml",
+                kind: "parsed",
+                parse: String,
+                optional: true,
+            },
             notesFolder: {
                 brief: "The root folder containing your notes",
                 kind: "parsed",
                 parse: String,
+                optional: true,
             },
             editor: {
                 brief: "Which editor configuration to use. Obsidian and VSCode have their own handlers",
@@ -32,6 +39,18 @@ export const weeklyCommand = buildCommand({
                 kind: "parsed",
                 parse: Number,
                 optional: true,
+            },
+            noOpen: {
+                brief: "Create the file without opening it in an editor",
+                kind: "boolean",
+                optional: true,
+            },
+            format: {
+                brief: "Output format for --no-open mode",
+                kind: "enum",
+                values: ["json", "text", "silent"] as const,
+                optional: true,
+                default: "text",
             },
         },
     },
