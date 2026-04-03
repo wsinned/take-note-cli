@@ -9,17 +9,13 @@ A Deno/TypeScript CLI for creating and managing weekly (and daily) markdown note
 [eget](https://github.com/zyedidia/eget) installs pre-built binaries directly from GitHub releases.
 
 ```bash
-# Install eget itself (if not already installed)
-eget zyedidia/eget --to /usr/local/bin
-
 # Install take-note
-eget wsinned/take-note-cli --to ~/.local/bin
+eget wsinned/take-note-cli --to ~/.local/bin --asset linux_x86_64
 ```
 
-To upgrade later:
-```bash
-eget wsinned/take-note-cli --to ~/.local/bin
-```
+The binary will be installed as `take-note`. To upgrade later, run the same command.
+
+> Install eget itself: see [zyedidia/eget](https://github.com/zyedidia/eget)
 
 ### Manual download
 

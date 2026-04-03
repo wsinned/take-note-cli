@@ -26,7 +26,6 @@ export const weeklyCommand = buildCommand({
                 kind: "enum",
                 values: ["obsidian", "vscode", "generic"] as const,
                 optional: true,
-                default: "generic",
             },
             template: {
                 brief: "The template file to use when creating new weekly notes",
@@ -50,7 +49,6 @@ export const weeklyCommand = buildCommand({
                 kind: "enum",
                 values: ["json", "text", "silent"] as const,
                 optional: true,
-                default: "text",
             },
         },
     },

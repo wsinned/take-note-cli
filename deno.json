@@ -4,7 +4,8 @@
     "startNext": "deno run --allow-run --allow-read --allow-write --allow-env --allow-sys take-note.ts weekly --notesFolder ~/tmp/notes --when nextWeek",
     "startLast": "deno run --allow-run --allow-read --allow-write --allow-env --allow-sys take-note.ts weekly --notesFolder ~/tmp/notes --when lastWeek",
     "test": "deno test --allow-read --allow-write --allow-env --allow-sys --allow-run",
-    "build": "deno compile --no-check --output output/take-note --allow-run --allow-read --allow-write --allow-env --allow-sys take-note.ts"
+    "build": "deno compile --no-check --output output/take-note --allow-run --allow-read --allow-write --allow-env --allow-sys take-note.ts",
+    "build:all": "deno compile --no-check --output output/take-note --allow-run --allow-read --allow-write --allow-env --allow-sys take-note.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",

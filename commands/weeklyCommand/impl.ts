@@ -63,8 +63,9 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
     }
 
     // Default: open in editor
-    const editor: Editor = editorFromString(merged.editor)
-    console.log(`Opening ${filePath}`)
+    const editorStr = merged.editor ?? "generic";
+    const editor: Editor = editorFromString(editorStr);
+    console.log(`Opening ${filePath} with ${editorStr}`)
     const handler = getEditorHandler(editor)
     handler(filePath)
 }

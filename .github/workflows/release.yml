@@ -15,18 +15,23 @@ jobs:
           - target: x86_64-unknown-linux-gnu
             os: ubuntu-latest
             asset_name: take-note_linux_x86_64
+            binary_name: take-note
           - target: aarch64-unknown-linux-gnu
             os: ubuntu-latest
             asset_name: take-note_linux_aarch64
+            binary_name: take-note
           - target: x86_64-apple-darwin
             os: macos-latest
             asset_name: take-note_darwin_x86_64
+            binary_name: take-note
           - target: aarch64-apple-darwin
             os: macos-latest
             asset_name: take-note_darwin_aarch64
+            binary_name: take-note
           - target: x86_64-pc-windows-msvc
             os: windows-latest
             asset_name: take-note_windows_x86_64.exe
+            binary_name: take-note.exe
 
     steps:
       - name: Checkout
@@ -43,13 +48,14 @@ jobs:
           deno compile \
             --no-check \
             --target ${{ matrix.target }} \
-            --output ${{ matrix.asset_name }} \
+            --output ${{ matrix.binary_name }} \
             --allow-run \
             --allow-read \
             --allow-write \
             --allow-env \
             --allow-sys \
             take-note.ts
+          mv ${{ matrix.binary_name }} ${{ matrix.asset_name }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
