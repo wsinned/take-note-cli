@@ -53,7 +53,7 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
         const result = {
             created: !fileExists,
             path: filePath,
-            date: date.toISOString().split('T')[0]
+            date: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
         };
         const output = formatOutput(result, format);
         if (output) {

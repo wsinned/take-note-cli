@@ -33,8 +33,7 @@ Deno.test("mergeWithFlags - undefined flags do not override config", () => {
 // --- loadConfig ---
 
 Deno.test("loadConfig - returns defaults when no config file exists", async () => {
-    // Point at a temp dir that definitely has no config
-    const config = await loadConfig("nonexistent");
+    const config = await loadConfig("default", "/tmp/nonexistent-take-note-test/config.toml");
     assertEquals(config.editor, "generic");
     assertEquals(config.batch, 1);
 });

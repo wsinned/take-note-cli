@@ -43,21 +43,23 @@ function expandHome(value: string): string {
  * Reads and parses the config file.
  * Returns an empty object if the file doesn't exist.
  */
-async function readConfigFile(): Promise<TakeNoteConfig> {
-    if (!await exists(CONFIG_PATH)) {
+async function readConfigFile(configPath: string = CONFIG_PATH): Promise<TakeNoteConfig> {
+    if (!await exists(configPath)) {
         return {};
     }
 
-    const raw = await Deno.readTextFile(CONFIG_PATH);
+    const raw = await Deno.readTextFile(configPath);
     return parse(raw) as TakeNoteConfig;
 }
 
 /**
  * Loads the named config section, merged with defaults.
  * Falls back to [default] if the named section doesn't exist.
+ * @param name - Config section name (default: "default")
+ * @param configPath - Override config file path (for testing)
  */
-export async function loadConfig(name: string = "default"): Promise<NamedConfig> {
-    const file = await readConfigFile();
+export async function loadConfig(name: string = "default", configPath?: string): Promise<NamedConfig> {
+    const file = await readConfigFile(configPath);
     const section = (file[name] ?? file["default"] ?? {}) as NamedConfig;
 
     const merged: NamedConfig = {

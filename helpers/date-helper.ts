@@ -3,19 +3,15 @@ import { addDays, format, lightFormat, startOfWeek } from "date-fns"
 
 export function dateFromWhen(date: Date, when: When): Date {
   let monday = startOfWeek(date, { weekStartsOn: 1 })
-  console.log(`Monday is ${monday}`)
 
   switch (when) {
     case When.lastWeek:
       monday = addDays(monday, -7)
-      console.log(`Monday last week is ${monday}`)
       break
     case When.nextWeek:
       monday = addDays(monday, 7)
-      console.log(`Monday next week is ${monday}`)
       break
     default:
-      console.log(`Monday is unchanged ${monday} for ${when} : ${typeof (when)}`)
       break
   }
 
