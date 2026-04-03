@@ -1,100 +1,194 @@
 # take-note-cli
 
-Deno and Typescript implementation of my note taking cli helper
+A Deno/TypeScript CLI for creating and managing weekly (and daily) markdown notes, designed for distribution as a standalone binary.
+
+## Installation
+
+### Recommended: eget (Linux/macOS)
+
+[eget](https://github.com/zyedidia/eget) installs pre-built binaries directly from GitHub releases.
+
+```bash
+# Install eget itself (if not already installed)
+eget zyedidia/eget --to /usr/local/bin
+
+# Install take-note
+eget wsinned/take-note-cli --to ~/.local/bin
+```
+
+To upgrade later:
+```bash
+eget wsinned/take-note-cli --to ~/.local/bin
+```
+
+### Manual download
+
+Download the appropriate binary for your platform from the [releases page](https://github.com/wsinned/take-note-cli/releases):
+
+| Platform | Asset |
+|----------|-------|
+| Linux x86_64 | `take-note_linux_x86_64` |
+| Linux arm64 (e.g. Raspberry Pi) | `take-note_linux_aarch64` |
+| macOS Intel | `take-note_darwin_x86_64` |
+| macOS Apple Silicon | `take-note_darwin_aarch64` |
+| Windows x86_64 | `take-note_windows_x86_64.exe` |
+
+Make the binary executable and move it to your PATH:
+```bash
+chmod +x take-note_linux_x86_64
+mv take-note_linux_x86_64 ~/.local/bin/take-note
+```
+
+### From source (requires Deno)
+
+```bash
+git clone https://github.com/wsinned/take-note-cli.git
+cd take-note-cli
+deno task build
+mv output/take-note ~/.local/bin/take-note
+```
+
+---
+
+## Configuration
+
+take-note reads from `~/.config/take-note/config.toml` if it exists. CLI flags always override config values.
+
+```toml
+[default]
+notesFolder = "~/Documents/Notes/Weekly"
+editor = "obsidian"           # obsidian | vscode | generic
+template = "Templates/weekly-template.md"
+batch = 1
+```
+
+### Named configs
+
+Use multiple configs for different contexts (e.g. work vs personal):
+
+```toml
+[default]
+notesFolder = "~/Documents/Personal/Weekly"
+editor = "obsidian"
+
+[work]
+notesFolder = "~/Documents/Work/Weekly"
+editor = "vscode"
+batch = 2
+```
+
+Select a named config with `--config work`.
+
+---
 
 ## Usage
 
 ```
-USAGE
-  take-note weekly (--when lastWeek|thisWeek|nextWeek) (--notesFolder value) 
-    [--editor obsidian|vscode|generic] [--template value] [--batch value]
-    [--noOpen] [--format json|text|silent]
-  take-note --help
-  take-note --version
-
-Take Note: A cli note taking helper
-
-FLAGS
-  -h --help     Print help information and exit
-  -v --version  Print version information and exit
-
-COMMANDS
-  weekly  Open a file for the given week's note, creating it first if it doesn't exist
+take-note weekly [OPTIONS]
+take-note --help
+take-note --version
 ```
 
+### Weekly notes
 
-### Open your weekly note for this week from the specified folder
-
-Open a file with a name matching the date of the Monday of the week specified using VSCode as the editor:
-
-``` 
-take-note weekly --notesFolder ~/Notes --when thisWeek --editor vscode
+Open (or create) this week's note:
+```bash
+take-note weekly --when thisWeek
 ```
 
-### Create a new file from a template if the file doens't already exist
-
-Supplying the ```--template``` flag and the path to a template file relative to the ```--notesFolder``` will use the template to create a new file with the content of the template file. If the template content contains HEADER_DATE it will be replaced with the file date formatted as ```'EEEE d MMMM yyyy```
-
-
-``` 
-take-note weekly --notesFolder ~/Notes --when thisWeek --template weekly-template.md
+With a specific config profile:
+```bash
+take-note weekly --when thisWeek --config work
 ```
 
-This results in a template file of ``` # template W/C HEADER_DATE ``` producing the file ```2025-07-28-Weekly-log.md``` with content:
-
-
-```
-# template W/C Monday 28 July 2025
-
-
+Override a config value for one invocation:
+```bash
+take-note weekly --when thisWeek --editor vscode
 ```
 
-### Headless Mode (automation/scripting)
+### `--when` options
 
-The `--noOpen` flag creates the file without opening it in an editor, perfect for automation, cron jobs, or scripting.
+| Value | Description |
+|-------|-------------|
+| `lastWeek` | Monday of last week |
+| `thisWeek` | Monday of the current week |
+| `nextWeek` | Monday of next week |
 
-#### Text Output (default)
+### Templates
+
+Supply a template path relative to `notesFolder`. The placeholder `HEADER_DATE` is replaced with the note date formatted as `Monday 28 July 2025`.
 
 ```bash
-take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen
-# Output: Created: /home/user/Notes/2026/02/2026-02-16-Weekly-log.md
+take-note weekly --when thisWeek --template Templates/weekly-template.md
 ```
 
-#### JSON Output (for scripts)
+A template containing `# W/C HEADER_DATE` produces:
+```markdown
+# W/C Monday 28 July 2025
+```
+
+### Headless / automation mode
+
+The `--noOpen` flag creates the file without opening an editor. Ideal for cron jobs and scripting.
 
 ```bash
-take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen --format json
-# Output:
-# {
-#   "created": true,
-#   "path": "/home/user/Notes/2026/02/2026-02-16-Weekly-log.md",
-#   "date": "2026-02-16"
-# }
+# Text output (default)
+take-note weekly --when thisWeek --noOpen
+# Created: /home/user/Notes/2026/02/2026-02-16-Weekly-log.md
+
+# JSON output (for scripts)
+take-note weekly --when thisWeek --noOpen --format json
+
+# Silent (exit code only, for cron)
+take-note weekly --when thisWeek --noOpen --format silent
 ```
 
-#### Silent Output (for cron)
-
-```bash
-take-note weekly --notesFolder ~/Notes --when thisWeek --noOpen --format silent
-# No output - exit code 0 on success
-```
-
-**Use cases:**
-- Cron jobs that pre-create weekly notes
-- Automation scripts that generate notes programmatically
-- CI/CD pipelines that need to create notes without user interaction
-- Background processes that track events in notes
-
-## To Do
-
-Implement the following:
-- batch file creation ahead of time
-- workspace option to use with VSCode
-- daily notes
-- creating and using a config file
+---
 
 ## Development
 
-This build relies on a devcontainer image pre-built from https://github.com/wsinned/oci-shared-images
+### Requirements
 
-Clone the repo and run `./ocisictl` to build bluefin-cli-deno-dx image.
+- [Deno](https://deno.land) v2.x
+
+### Tasks
+
+```bash
+deno task start      # Run with default test options
+deno task test       # Run all tests
+deno task build      # Compile binary to output/take-note
+```
+
+### Project structure
+
+```
+take-note.ts                  # Entry point
+commands/
+  weeklyCommand/              # Weekly notes command
+helpers/
+  config-helper.ts            # TOML config loading & merging
+  date-helper.ts              # Date calculations
+  output-helper.ts            # Formatted output
+  updateTemplateVariables.ts  # Template variable replacement
+handlers/
+  buildObsidianHandler.ts     # Obsidian editor integration
+  buildVSCodeHandler.ts       # VSCode editor integration
+  buildGenericHandler.ts      # Generic editor (uses $EDITOR)
+options/
+  whenOptions.ts              # --when flag parsing
+  editorOptions.ts            # --editor flag parsing
+```
+
+---
+
+## Roadmap
+
+- [x] Weekly notes
+- [x] Headless mode (`--noOpen`, `--format`)
+- [x] Config file (`~/.config/take-note/config.toml`)
+- [x] Named configs (`--config work`)
+- [x] Binary distribution via GitHub releases
+- [ ] Daily notes
+- [ ] Batch creation (`--batch N`)
+- [ ] Append mode (`--append "text"`)
+- [ ] `take-note init` setup wizard
