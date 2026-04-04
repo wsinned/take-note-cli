@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert/equals";
-import { dateForHeader, dateFromWhen, namefromDate } from "./date-helper.ts";
-import { When } from "../options/whenOptions.ts";
+import { dateForHeader, dateFromDailyWhen, dateFromWhen, namefromDate } from "./date-helper.ts";
+import { DailyWhen, When } from "../options/whenOptions.ts";
 
 
 // Use local date constructor (year, month-1, day) to avoid UTC/timezone issues
@@ -34,4 +34,24 @@ Deno.test("It formats a date based filename", () => {
 Deno.test("It formats a date based header", () => {
     const date = d(2025, 5, 21)
     assertEquals('Wednesday 21 May 2025', dateForHeader(date))
+})
+
+Deno.test("dateFromDailyWhen returns the same date for today", () => {
+    const date = d(2025, 5, 21)
+    assertEquals(d(2025, 5, 21), dateFromDailyWhen(date, DailyWhen.today))
+})
+
+Deno.test("dateFromDailyWhen returns the previous day for yesterday", () => {
+    const date = d(2025, 5, 21)
+    assertEquals(d(2025, 5, 20), dateFromDailyWhen(date, DailyWhen.yesterday))
+})
+
+Deno.test("dateFromDailyWhen returns the next day for tomorrow", () => {
+    const date = d(2025, 5, 21)
+    assertEquals(d(2025, 5, 22), dateFromDailyWhen(date, DailyWhen.tomorrow))
+})
+
+Deno.test("dateFromDailyWhen crosses month boundary correctly", () => {
+    const date = d(2025, 5, 31)
+    assertEquals(d(2025, 6, 1), dateFromDailyWhen(date, DailyWhen.tomorrow))
 })

@@ -3,6 +3,7 @@ import process from "node:process";
 // import { buildInstallCommand, buildUninstallCommand } from "@stricli/auto-complete";
 // import { name, version, description } from "../package.json";
 import { weeklyCommand } from "./commands/weeklyCommand/command.ts";
+import { dailyCommand } from "./commands/dailyCommand/command.ts";
 // import { nestedRoutes } from "./commands/nested/commands";
 import meta from "./deno.json" with { type: "json" };
 
@@ -12,7 +13,7 @@ const routes = buildRouteMap({
     routes: {
         // config: configCommand,
         weekly: weeklyCommand,
-        // daily: dailyCommand
+        daily: dailyCommand,
     },
     docs: {
         brief: description,

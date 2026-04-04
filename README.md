@@ -87,6 +87,7 @@ Select a named config with `--config work`.
 
 ```
 take-note weekly [OPTIONS]
+take-note daily [OPTIONS]
 take-note --help
 take-note --version
 ```
@@ -115,6 +116,21 @@ take-note weekly --when thisWeek --editor vscode
 | `lastWeek` | Monday of last week |
 | `thisWeek` | Monday of the current week |
 | `nextWeek` | Monday of next week |
+
+### Daily notes
+
+Open (or create) today's note:
+```bash
+take-note daily --when today
+```
+
+### `--when` options (daily)
+
+| Value | Description |
+|-------|-------------|
+| `yesterday` | Yesterday's date |
+| `today` | Today's date |
+| `tomorrow` | Tomorrow's date |
 
 ### Templates
 
@@ -190,7 +206,7 @@ options/
 - [x] Config file (`~/.config/take-note/config.toml`)
 - [x] Named configs (`--config work`)
 - [x] Binary distribution via GitHub releases
-- [ ] Daily notes
+- [x] Daily notes
 - [ ] Batch creation (`--batch N`)
 - [ ] Append mode (`--append "text"`)
 - [ ] `take-note init` setup wizard

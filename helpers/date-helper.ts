@@ -1,4 +1,4 @@
-import { When } from "../options/whenOptions.ts";
+import { When, DailyWhen } from "../options/whenOptions.ts";
 import { addDays, format, lightFormat, startOfWeek } from "date-fns"
 
 export function dateFromWhen(date: Date, when: When): Date {
@@ -16,6 +16,17 @@ export function dateFromWhen(date: Date, when: When): Date {
   }
 
   return monday
+}
+
+export function dateFromDailyWhen(date: Date, when: DailyWhen): Date {
+  switch (when) {
+    case DailyWhen.yesterday:
+      return addDays(date, -1)
+    case DailyWhen.tomorrow:
+      return addDays(date, 1)
+    default:
+      return date
+  }
 }
 
 export function namefromDate(date: Date, suffix: string, ext: string): [string, string] {
