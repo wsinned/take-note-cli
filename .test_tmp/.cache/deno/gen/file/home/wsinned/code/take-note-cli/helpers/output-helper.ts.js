@@ -1,0 +1,18 @@
+/**
+ * Output formatting helper for headless mode
+ */ export function formatOutput(results, format) {
+  switch(format){
+    case "json":
+      return JSON.stringify(results, null, 2);
+    case "text":
+      return results.map((result)=>{
+        const verb = result.created ? "Created" : "Found";
+        return `${verb}: ${result.path}`;
+      }).join("\n");
+    case "silent":
+      // Silent mode returns empty string (exit code indicates success)
+      return "";
+  }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS93c2lubmVkL2NvZGUvdGFrZS1ub3RlLWNsaS9oZWxwZXJzL291dHB1dC1oZWxwZXIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBPdXRwdXQgZm9ybWF0dGluZyBoZWxwZXIgZm9yIGhlYWRsZXNzIG1vZGVcbiAqL1xuXG5leHBvcnQgdHlwZSBPdXRwdXRGb3JtYXQgPSBcImpzb25cIiB8IFwidGV4dFwiIHwgXCJzaWxlbnRcIjtcblxuZXhwb3J0IGludGVyZmFjZSBGaWxlUmVzdWx0IHtcbiAgY3JlYXRlZDogYm9vbGVhbjtcbiAgcGF0aDogc3RyaW5nO1xuICBkYXRlOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRPdXRwdXQocmVzdWx0czogRmlsZVJlc3VsdFtdLCBmb3JtYXQ6IE91dHB1dEZvcm1hdCk6IHN0cmluZyB7XG4gIHN3aXRjaCAoZm9ybWF0KSB7XG4gICAgY2FzZSBcImpzb25cIjpcbiAgICAgIHJldHVybiBKU09OLnN0cmluZ2lmeShyZXN1bHRzLCBudWxsLCAyKTtcbiAgICBcbiAgICBjYXNlIFwidGV4dFwiOlxuICAgICAgcmV0dXJuIHJlc3VsdHMubWFwKHJlc3VsdCA9PiB7XG4gICAgICAgIGNvbnN0IHZlcmIgPSByZXN1bHQuY3JlYXRlZCA/IFwiQ3JlYXRlZFwiIDogXCJGb3VuZFwiO1xuICAgICAgICByZXR1cm4gYCR7dmVyYn06ICR7cmVzdWx0LnBhdGh9YDtcbiAgICAgIH0pLmpvaW4oXCJcXG5cIik7XG4gICAgXG4gICAgY2FzZSBcInNpbGVudFwiOlxuICAgICAgLy8gU2lsZW50IG1vZGUgcmV0dXJucyBlbXB0eSBzdHJpbmcgKGV4aXQgY29kZSBpbmRpY2F0ZXMgc3VjY2VzcylcbiAgICAgIHJldHVybiBcIlwiO1xuICB9XG59XG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0NBRUMsR0FVRCxPQUFPLFNBQVMsYUFBYSxPQUFxQixFQUFFLE1BQW9CO0VBQ3RFLE9BQVE7SUFDTixLQUFLO01BQ0gsT0FBTyxLQUFLLFNBQVMsQ0FBQyxTQUFTLE1BQU07SUFFdkMsS0FBSztNQUNILE9BQU8sUUFBUSxHQUFHLENBQUMsQ0FBQTtRQUNqQixNQUFNLE9BQU8sT0FBTyxPQUFPLEdBQUcsWUFBWTtRQUMxQyxPQUFPLEdBQUcsS0FBSyxFQUFFLEVBQUUsT0FBTyxJQUFJLEVBQUU7TUFDbEMsR0FBRyxJQUFJLENBQUM7SUFFVixLQUFLO01BQ0gsaUVBQWlFO01BQ2pFLE9BQU87RUFDWDtBQUNGIn0=
+// denoCacheMetadata=9908335933416826004,1900812635461848102
