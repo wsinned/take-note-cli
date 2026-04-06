@@ -10,13 +10,14 @@ export interface FileResult {
   date: string;
 }
 
-export function formatOutput(results: FileResult[], format: OutputFormat): string {
+export function formatOutput(results: FileResult | FileResult[], format: OutputFormat): string {
+  const resultsArray = Array.isArray(results) ? results : [results];
   switch (format) {
     case "json":
-      return JSON.stringify(results, null, 2);
+      return JSON.stringify(resultsArray, null, 2);
     
     case "text":
-      return results.map(result => {
+      return resultsArray.map(result => {
         const verb = result.created ? "Created" : "Found";
         return `${verb}: ${result.path}`;
       }).join("\n");
