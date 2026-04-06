@@ -1,7 +1,7 @@
 import { assertEquals, assertStringIncludes } from "@std/assert";
 import { ensureDir, exists } from "@std/fs";
 
-const TEST_DIR = `${Deno.cwd()}/.test_tmp`;
+const TEST_DIR = `${Deno.env.get("TMPDIR") ?? "/tmp"}/take-note-batch-test`;
 const NOTES_FOLDER = `${TEST_DIR}/Weekly`;
 const TEMPLATE_RELATIVE = "Templates/weekly.md";  // relative to NOTES_FOLDER
 const TEMPLATE_ABS = `${NOTES_FOLDER}/${TEMPLATE_RELATIVE}`;
