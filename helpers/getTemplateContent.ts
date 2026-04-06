@@ -9,11 +9,11 @@ export async function getTemplateContent(notesFolder: string, templateFlag?: str
   const validFile = await exists(templatePath, { isFile: true });
 
   if (!validFile) {
-    console.log(`Failed to find template ${templatePath}`);
+    console.error(`Failed to find template ${templatePath}`);
     throw new Error(`Invalid template file: ${templatePath} `);
   }
 
-  console.log(`Using template ${templatePath}`);
+  console.error(`Using template ${templatePath}`);
   const decoder = new TextDecoder("utf-8");
   const data = Deno.readFileSync(templatePath);
   return decoder.decode(data);

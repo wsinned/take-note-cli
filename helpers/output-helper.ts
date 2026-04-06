@@ -10,17 +10,19 @@ export interface FileResult {
   date: string;
 }
 
-export function formatOutput(result: FileResult, format: OutputFormat): string {
+export function formatOutput(results: FileResult | FileResult[], format: OutputFormat): string {
+  const items = Array.isArray(results) ? results : [results];
   switch (format) {
     case "json":
-      return JSON.stringify(result, null, 2);
+      return JSON.stringify(items, null, 2);
     
     case "text":
-      const verb = result.created ? "Created" : "Found";
-      return `${verb}: ${result.path}`;
+      return items.map(r => {
+        const verb = r.created ? "Created" : "Found";
+        return `${verb}: ${r.path}`;
+      }).join("\n");
     
     case "silent":
-      // Silent mode returns empty string (exit code indicates success)
       return "";
   }
 }
