@@ -105,6 +105,7 @@
       "jsr:@std/assert@1",
       "jsr:@std/cli@^1.0.16",
       "jsr:@std/fs@^1.0.16",
+      "jsr:@std/path@^1.0.8",
       "jsr:@std/toml@1",
       "npm:@stricli/auto-complete@^1.2.0",
       "npm:@stricli/core@^1.2.0",
