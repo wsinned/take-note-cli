@@ -42,9 +42,7 @@ export function dateForHeader(date: Date): string {
 export function getBatchDates(startDate: Date, batchSize: number): Date[] {
   const dates: Date[] = [];
   for (let i = 0; i < batchSize; i++) {
-    const date = addDays(startDate, i * 7);
-    // Ensure it's always the start of the week (Monday)
-    dates.push(startOfWeek(date, { weekStartsOn: 1 }));
+    dates.push(addDays(startDate, i * 7));
   }
   return dates;
 }

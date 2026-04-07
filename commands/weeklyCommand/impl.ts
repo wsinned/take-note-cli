@@ -7,7 +7,7 @@ import { Editor, editorFromString } from "../../options/editorOptions.ts";
 import { getEditorHandler } from "../../handlers/getEditorHandler.ts";
 import { getTemplateContent } from "../../helpers/getTemplateContent.ts";
 import { updateTemplateVariables } from "../../helpers/updateTemplateVariables.ts";
-import { formatOutput, type OutputFormat } from "../../helpers/output-helper.ts";
+import { formatOutput, type OutputFormat, type FileResult } from "../../helpers/output-helper.ts";
 import { loadConfig, mergeWithFlags } from "../../helpers/config-helper.ts";
 
 interface WeeklyCommandFlags {
@@ -16,7 +16,7 @@ interface WeeklyCommandFlags {
     notesFolder?: string;
     editor?: "obsidian" | "vscode" | "generic";
     template?: string;
-    batch: number; // No longer optional, now has a default
+    batch: number;
     noOpen?: boolean;
     format?: "json" | "text" | "silent";
 }
@@ -30,34 +30,33 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
         Deno.exit(1);
     }
 
-    const MAX_BATCH_SIZE = 8;
-    if (merged.batch < 1 || merged.batch > MAX_BATCH_SIZE) {
-        console.error(`Error: batch size must be between 1 and ${MAX_BATCH_SIZE}.`);
+    // Validate batch size
+    const batchSize = merged.batch ?? flags.batch ?? 1;
+    if (batchSize < 1 || batchSize > 8) {
+        console.error("Error: batch size must be between 1 and 8");
         Deno.exit(1);
     }
 
-    const when: When = whenFromString(merged.when ?? flags.when);
-    const initialDate = dateFromWhen(new Date(), when);
-    const datesToProcess = getBatchDates(initialDate, merged.batch);
+    const when: When = whenFromString(merged.when ?? flags.when)
+    const startDate = dateFromWhen(new Date, when)
+    const dates = getBatchDates(startDate, batchSize);
+    const SUFFIX = 'Weekly-log'
+    const FILE_EXT = 'md'
 
-    const SUFFIX = 'Weekly-log';
-    const FILE_EXT = 'md';
-    
-    const results: { created: boolean; path: string; date: string }[] = [];
-    let firstFilePath: string | undefined;
+    const results: FileResult[] = [];
 
-    for (const date of datesToProcess) {
-        const [pathPart, fileName] = namefromDate(date, SUFFIX, FILE_EXT);
-        const fullPath = path.join(merged.notesFolder, pathPart);
+    for (const date of dates) {
+        const [pathPart, fileName] = namefromDate(date, SUFFIX, FILE_EXT)
+        const fullPath = path.join(merged.notesFolder!, pathPart)
 
-        await Deno.mkdir(fullPath, { recursive: true });
-        const filePath = path.join(fullPath, fileName);
-        const fileExists = await exists(filePath);
-
+        await Deno.mkdir(fullPath, { recursive: true })
+        const filePath = path.join(fullPath, fileName)
+        const fileExists = await exists(filePath)
+        
         if (!fileExists) {
-            let content = await getTemplateContent(merged.notesFolder!, merged.template);
-            content = updateTemplateVariables(content, dateForHeader(date));
-            Deno.writeTextFileSync(filePath, content);
+            let content = await getTemplateContent(merged.notesFolder!, merged.template)
+            content = updateTemplateVariables(content, dateForHeader(date))
+            await Deno.writeTextFile(filePath, content)
         }
 
         results.push({
@@ -65,28 +64,25 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
             path: filePath,
             date: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
         });
-
-        if (!firstFilePath) { // Capture the first file path for opening later
-            firstFilePath = filePath;
-        }
     }
 
+    // Handle no-open mode
     if (merged.noOpen) {
         const format = (merged.format || "text") as OutputFormat;
-        const output = formatOutput(results, format); // formatOutput needs to handle array
+        const output = format.length === 1 
+            ? formatOutput(results[0], format)
+            : formatOutput(results, format);
         if (output) {
             console.log(output);
         }
         return;
     }
 
-    // Default: open in editor (only the first file of the batch)
-    if (firstFilePath) {
-        const editorStr = merged.editor ?? "generic";
-        const editor: Editor = editorFromString(editorStr);
-        console.log(`Opening ${firstFilePath} with ${editorStr}`);
-        const handler = getEditorHandler(editor);
-        handler(firstFilePath);
-    }
+    // Default: open only the first file in editor
+    const editorStr = merged.editor ?? "generic";
+    const editor: Editor = editorFromString(editorStr);
+    const firstFile = results[0].path;
+    console.log(`Opening ${firstFile} with ${editorStr}`)
+    const handler = getEditorHandler(editor)
+    handler(firstFile)
 }
-
