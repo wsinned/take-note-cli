@@ -207,6 +207,6 @@ options/
 - [x] Named configs (`--config work`)
 - [x] Binary distribution via GitHub releases
 - [x] Daily notes
-- [ ] Batch creation (`--batch N`)
+- [x] Batch creation (`--batch N`)
 - [ ] Append mode (`--append "text"`)
 - [ ] `take-note init` setup wizard
