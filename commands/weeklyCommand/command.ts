@@ -37,7 +37,7 @@ export const weeklyCommand = buildCommand({
                 brief: "The number of files to create, e.g. 3 will create the file for the selected when option and the following 2 weeks",
                 kind: "parsed",
                 parse: Number,
-                default: "1",
+                optional: true,
             },
             noOpen: {
                 brief: "Create the file without opening it in an editor",
