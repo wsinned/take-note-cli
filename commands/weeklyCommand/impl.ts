@@ -31,7 +31,7 @@ export default async function (this: LocalContext, flags: WeeklyCommandFlags): P
     }
 
     // Validate batch size
-    const batchSize = merged.batch ?? flags.batch ?? 1;
+    const batchSize = merged.batch ?? 1;
     if (batchSize < 1 || batchSize > 8) {
         console.error("Error: batch size must be between 1 and 8");
         Deno.exit(1);
