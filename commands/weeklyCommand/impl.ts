@@ -16,7 +16,7 @@ interface WeeklyCommandFlags {
     notesFolder?: string;
     editor?: "obsidian" | "vscode" | "generic";
     template?: string;
-    batch: number;
+    batch?: number;
     noOpen?: boolean;
     format?: "json" | "text" | "silent";
 }
