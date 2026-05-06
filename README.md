@@ -182,16 +182,20 @@ deno task build      # Compile binary to output/take-note
 ```
 take-note.ts                  # Entry point
 commands/
-  weeklyCommand/              # Weekly notes command
+  weeklyCommand/              # Weekly notes command (with batch support)
+  dailyCommand/               # Daily notes command
+  configCommand/              # Config command (placeholder)
 helpers/
   config-helper.ts            # TOML config loading & merging
-  date-helper.ts              # Date calculations
+  date-helper.ts              # Date calculations (includes getBatchDates)
   output-helper.ts            # Formatted output
+  getTemplateContent.ts       # Template loading (logs to stderr)
   updateTemplateVariables.ts  # Template variable replacement
 handlers/
   buildObsidianHandler.ts     # Obsidian editor integration
   buildVSCodeHandler.ts       # VSCode editor integration
   buildGenericHandler.ts      # Generic editor (uses $EDITOR)
+  getEditorHandler.ts         # Editor handler dispatcher
 options/
   whenOptions.ts              # --when flag parsing
   editorOptions.ts            # --editor flag parsing
