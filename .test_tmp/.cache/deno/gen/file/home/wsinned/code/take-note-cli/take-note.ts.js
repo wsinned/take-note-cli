@@ -1,0 +1,33 @@
+import { run, buildApplication, buildRouteMap } from "@stricli/core";
+import process from "node:process";
+// import { buildInstallCommand, buildUninstallCommand } from "@stricli/auto-complete";
+// import { name, version, description } from "../package.json";
+import { weeklyCommand } from "./commands/weeklyCommand/command.ts";
+// import { nestedRoutes } from "./commands/nested/commands";
+import meta from "./deno.json" with {
+  type: "json"
+};
+const description = 'Take Note: A cli note taking helper';
+const routes = buildRouteMap({
+  routes: {
+    // config: configCommand,
+    weekly: weeklyCommand
+  },
+  docs: {
+    brief: description,
+    hideRoute: {}
+  }
+});
+export const app = buildApplication(routes, {
+  name: "take-note",
+  versionInfo: {
+    currentVersion: meta.version
+  }
+});
+if (import.meta.main) {
+  await run(app, process.argv.slice(2), {
+    process
+  });
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS93c2lubmVkL2NvZGUvdGFrZS1ub3RlLWNsaS90YWtlLW5vdGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcnVuLCBidWlsZEFwcGxpY2F0aW9uLCBidWlsZFJvdXRlTWFwIH0gZnJvbSBcIkBzdHJpY2xpL2NvcmVcIjtcbmltcG9ydCBwcm9jZXNzIGZyb20gXCJub2RlOnByb2Nlc3NcIjtcbi8vIGltcG9ydCB7IGJ1aWxkSW5zdGFsbENvbW1hbmQsIGJ1aWxkVW5pbnN0YWxsQ29tbWFuZCB9IGZyb20gXCJAc3RyaWNsaS9hdXRvLWNvbXBsZXRlXCI7XG4vLyBpbXBvcnQgeyBuYW1lLCB2ZXJzaW9uLCBkZXNjcmlwdGlvbiB9IGZyb20gXCIuLi9wYWNrYWdlLmpzb25cIjtcbmltcG9ydCB7IHdlZWtseUNvbW1hbmQgfSBmcm9tIFwiLi9jb21tYW5kcy93ZWVrbHlDb21tYW5kL2NvbW1hbmQudHNcIjtcbi8vIGltcG9ydCB7IG5lc3RlZFJvdXRlcyB9IGZyb20gXCIuL2NvbW1hbmRzL25lc3RlZC9jb21tYW5kc1wiO1xuaW1wb3J0IG1ldGEgZnJvbSBcIi4vZGVuby5qc29uXCIgd2l0aCB7IHR5cGU6IFwianNvblwiIH07XG5cbmNvbnN0IGRlc2NyaXB0aW9uID0gJ1Rha2UgTm90ZTogQSBjbGkgbm90ZSB0YWtpbmcgaGVscGVyJ1xuXG5jb25zdCByb3V0ZXMgPSBidWlsZFJvdXRlTWFwKHtcbiAgICByb3V0ZXM6IHtcbiAgICAgICAgLy8gY29uZmlnOiBjb25maWdDb21tYW5kLFxuICAgICAgICB3ZWVrbHk6IHdlZWtseUNvbW1hbmQsXG4gICAgICAgIC8vIGRhaWx5OiBkYWlseUNvbW1hbmRcbiAgICB9LFxuICAgIGRvY3M6IHtcbiAgICAgICAgYnJpZWY6IGRlc2NyaXB0aW9uLFxuICAgICAgICBoaWRlUm91dGU6IHt9LFxuICAgIH0sXG59KTtcblxuZXhwb3J0IGNvbnN0IGFwcCA9IGJ1aWxkQXBwbGljYXRpb24ocm91dGVzLCB7XG4gICAgbmFtZTogXCJ0YWtlLW5vdGVcIixcbiAgICB2ZXJzaW9uSW5mbzoge1xuICAgICAgICBjdXJyZW50VmVyc2lvbjogbWV0YS52ZXJzaW9uXG4gICAgfSxcbn0pO1xuXG5pZiAoaW1wb3J0Lm1ldGEubWFpbikge1xuICAgIGF3YWl0IHJ1bihhcHAsIHByb2Nlc3MuYXJndi5zbGljZSgyKSwgeyBwcm9jZXNzIH0pO1xufVxuXG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsU0FBUyxHQUFHLEVBQUUsZ0JBQWdCLEVBQUUsYUFBYSxRQUFRLGdCQUFnQjtBQUNyRSxPQUFPLGFBQWEsZUFBZTtBQUNuQyx1RkFBdUY7QUFDdkYsZ0VBQWdFO0FBQ2hFLFNBQVMsYUFBYSxRQUFRLHNDQUFzQztBQUNwRSw2REFBNkQ7QUFDN0QsT0FBTyxVQUFVLG1CQUFtQjtFQUFFLE1BQU07QUFBTyxFQUFFO0FBRXJELE1BQU0sY0FBYztBQUVwQixNQUFNLFNBQVMsY0FBYztFQUN6QixRQUFRO0lBQ0oseUJBQXlCO0lBQ3pCLFFBQVE7RUFFWjtFQUNBLE1BQU07SUFDRixPQUFPO0lBQ1AsV0FBVyxDQUFDO0VBQ2hCO0FBQ0o7QUFFQSxPQUFPLE1BQU0sTUFBTSxpQkFBaUIsUUFBUTtFQUN4QyxNQUFNO0VBQ04sYUFBYTtJQUNULGdCQUFnQixLQUFLLE9BQU87RUFDaEM7QUFDSixHQUFHO0FBRUgsSUFBSSxZQUFZLElBQUksRUFBRTtFQUNsQixNQUFNLElBQUksS0FBSyxRQUFRLElBQUksQ0FBQyxLQUFLLENBQUMsSUFBSTtJQUFFO0VBQVE7QUFDcEQifQ==
+// denoCacheMetadata=14414802303188996875,7371934287825058935

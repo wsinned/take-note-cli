@@ -34,7 +34,7 @@ export const weeklyCommand = buildCommand({
                 optional: true,
             },
             batch: {
-                brief: "The number of files to create, e.g. 3 will create the file for the seected when option and the following 2 weeks",
+                brief: "The number of files to create, e.g. 3 will create the file for the selected when option and the following 2 weeks",
                 kind: "parsed",
                 parse: Number,
                 optional: true,

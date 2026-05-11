@@ -38,3 +38,11 @@ export function namefromDate(date: Date, suffix: string, ext: string): [string, 
 export function dateForHeader(date: Date): string {
   return `${format(date, 'EEEE d MMMM yyyy')}`
 }
+
+export function getBatchDates(startDate: Date, batchSize: number): Date[] {
+  const dates: Date[] = [];
+  for (let i = 0; i < batchSize; i++) {
+    dates.push(addDays(startDate, i * 7));
+  }
+  return dates;
+}
