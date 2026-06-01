@@ -4,7 +4,7 @@ Current project state and key decisions for continuity between sessions.
 
 ## Current Status (April 2025)
 
-- **Version:** 1.3.3
+- **Version:** 1.3.5
 - **Deno/TypeScript CLI** for weekly/daily markdown notes
 - **Binary distribution** via GitHub releases (Linux, macOS, Windows)
 
@@ -104,6 +104,7 @@ cp output/take-note ~/.local/bin/
 ## Critical Notes
 
 - **Batch size limits:** 1 (min) and 8 (max)
+- **Batch config from file:** Fixed stricli default overriding config value (v1.3.4)
 - **Exit code 1** for batch validation errors
 - **Template paths:** Relative to `notesFolder` (e.g., `"Templates/weekly.md"`)
 - **Subprocess tests:** Use absolute paths for `--notesFolder` to avoid resolution issues
@@ -111,4 +112,4 @@ cp output/take-note ~/.local/bin/
 
 ---
 
-*Last updated: 2025-04-07 after v1.3.3 release*
+*Last updated: 2026-05-06 after v1.3.5 release*
